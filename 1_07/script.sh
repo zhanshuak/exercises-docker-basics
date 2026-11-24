@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 while true
 do
   echo "Input website:"
