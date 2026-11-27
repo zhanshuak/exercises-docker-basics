@@ -1,1 +1,18 @@
-# use here COPY 1_12 .
+FROM ubuntu:22.04
+
+WORKDIR /usr/src/app
+
+COPY --from=node:16 /usr/local/bin /usr/local/bin
+COPY --from=node:16 /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+COPY 1_12 .
+
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
+RUN npm install && \
+    npm run build && \
+    npm install -g serve
+
+EXPOSE 5001
+
+CMD ["serve", "-s", "-l", "5001", "build"]
